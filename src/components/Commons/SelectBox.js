@@ -5,7 +5,8 @@ export const SelectBox = styled.div`
   width: 145px;
   font-family: 'Roboto', sans-serif;
   margin-top: 17px;
-  border: 1px solid #cecece;
+  background-color: ${(props) => (props.selected ? '#FFEED2' : '#FFFFFF ')};
+  border: ${(props) => (props.selected ? 'none' : '1px solid #CECECE')};
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -13,15 +14,15 @@ export const SelectBox = styled.div`
   justify-content: center;
 
   h1 {
-    color: #454545;
     font-size: 16px;
     line-height: 18.75px;
     margin-bottom: 3px;
+    color: #454545;
   }
 
   p {
-    color: #898989;
     font-size: 14px;
     line-height: 16.41px;
+    color: #898989;
   }
 `;
