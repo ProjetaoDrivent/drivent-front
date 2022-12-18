@@ -1,13 +1,11 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
 import useTicket from '../../hooks/api/useTicket';
 import { SubTitle } from '../Commons/SubTitle';
 import TicketType from './TicketType';
 
-export default function Tickets() {
+export default function Tickets({ selectedTicket, setSelectedTicket }) {
   const { tickets } = useTicket();
-  const [selectedTicket, setSelectedTicket] = useState(0);
 
   return (
     <>
