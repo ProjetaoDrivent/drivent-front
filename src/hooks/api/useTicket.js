@@ -1,7 +1,7 @@
 import useAsync from '../useAsync';
 import useToken from '../useToken';
 
-import * as ticketApi from '../../services/ticketsApi';
+import * as ticketsApi from '../../services/ticketsApi';
 
 export default function useHotel() {
   const token = useToken();
@@ -11,7 +11,7 @@ export default function useHotel() {
     loading: ticketLoading,
     error: ticketError,
     act: getTicketsInformations,
-  } = useAsync(() => ticketApi.getTicketsInformations(token));
+  } = useAsync(() => ticketsApi.getTicketsInformations(token));
 
   return {
     tickets,
