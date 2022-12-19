@@ -1,12 +1,28 @@
 import { useState } from 'react';
-import Tickets from '../../../components/Tickets';
+import styled from 'styled-components';
+import { Typography } from '@material-ui/core';
+import useEnrollment from '../../../hooks/api/useEnrollment';
+import Warning from '../../../components/WarningMessage';
+import TicketTypes from '../../../components/Tickets';
 
 export default function Payment() {
-  const [selectedTicket, setSelectedTicket] = useState(null);
+  const { enrollment } = useEnrollment();
+  const [selectedTicketType, setSelectedTicketType] = useState(null);
 
   return (
     <>
-      <Tickets selectedTicket={selectedTicket} setSelectedTicket={setSelectedTicket} />
+      <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
+      {enrollment?.name === undefined ? (
+        <Warning>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</Warning>
+      ) : (
+        <>
+          <TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />
+        </>
+      )}
     </>
   );
 }
+
+const StyledTypography = styled(Typography)`
+  margin-bottom: 20px !important;
+`;

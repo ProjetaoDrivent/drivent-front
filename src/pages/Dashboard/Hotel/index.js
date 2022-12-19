@@ -1,12 +1,15 @@
-import { Warning } from '../../../components/Commons/Warning';
-import usePayment from '../../../hooks/api/usePayment';
+import styled from 'styled-components';
+import { Typography } from '@material-ui/core';
+import useTicket from '../../../hooks/api/useTicketType';
+import Warning from '../../../components/WarningMessage';
 
 export default function Hotel() {
-  const { payments } = usePayment();
+  const { ticket } = useTicket();
 
   return (
     <>
-      {!payments ? (
+      <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
+      {ticket?.status !== 'PAID' ? (
         <Warning>Você precisa ter confirmado pagamento antes de fazer a escolha da hospedagem</Warning>
       ) : (
         <></>
@@ -14,3 +17,7 @@ export default function Hotel() {
     </>
   );
 }
+
+const StyledTypography = styled(Typography)`
+  margin-bottom: 20px !important;
+`;
