@@ -1,18 +1,18 @@
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-import useTicket from '../../../hooks/api/useTicketType';
 import Warning from '../../../components/WarningMessage';
+import Hotels from '../../../components/Hotels/index';
 
 export default function Hotel() {
-  const { ticket } = useTicket();
+  const tickets = 'PAID';
 
   return (
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
-      {ticket?.status !== 'PAID' ? (
+      {tickets !== 'PAID' ? (
         <Warning>Você precisa ter confirmado pagamento antes de fazer a escolha da hospedagem</Warning>
       ) : (
-        <></>
+        <Hotels/>
       )}
     </>
   );
