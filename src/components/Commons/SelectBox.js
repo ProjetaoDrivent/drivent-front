@@ -5,6 +5,7 @@ export const SelectBox = styled.div`
   width: 145px;
   font-family: 'Roboto', sans-serif;
   margin-top: 17px;
+  margin-bottom: 44px;
   background-color: ${(props) => (props.selected ? '#FFEED2' : '#FFFFFF ')};
   border: ${(props) => (props.selected ? 'none' : '1px solid #CECECE')};
   border-radius: 20px;
