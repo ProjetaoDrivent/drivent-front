@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import useTicketType from '../../hooks/api/useTicketType';
+import * as useTickets from '../../hooks/api/useTickets';
 import { SubTitle } from '../Commons/SubTitle';
 import TicketTypeCard from './TicketTypeCard';
 
 export default function TicketTypes({ selectedTicketType, setSelectedTicketType }) {
-  let { ticketTypes } = useTicketType();
+  let { ticketTypes } = useTickets.useTicketType();
 
   let ticketTypesToShow = [];
   
