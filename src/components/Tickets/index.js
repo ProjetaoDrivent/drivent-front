@@ -4,14 +4,26 @@ import { SubTitle } from '../Commons/SubTitle';
 import TicketTypeCard from './TicketTypeCard';
 
 export default function TicketTypes({ selectedTicketType, setSelectedTicketType }) {
-  const { ticketTypes } = useTicketType();
+  let { ticketTypes } = useTicketType();
 
+  let ticketTypesToShow = [];
+  
+  ticketTypes?.forEach((ticket) => {
+    let duplicated  = ticketTypesToShow.findIndex(redticket => {
+      return ticket.name === redticket.name;
+    }) > -1;
+
+    if(!duplicated) {
+      ticketTypesToShow.push(ticket);
+    }
+  });
+  
   return (
     <>
       <SubTitle>Primeiro, escolha sua modalidade de ingresso</SubTitle>
       <TicketsContainer>
-        {ticketTypes ? (
-          ticketTypes.map((ticketType) => (
+        {ticketTypesToShow ? (
+          ticketTypesToShow.map((ticketType) => (
             <TicketTypeCard
               key={ticketType.id}
               {...ticketType}
