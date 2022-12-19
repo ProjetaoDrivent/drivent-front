@@ -26,4 +26,8 @@ export const SelectBox = styled.div`
     line-height: 16.41px;
     color: #898989;
   }
+
+  &:active {
+    transform: scale(0.80);
+  }
 `;
