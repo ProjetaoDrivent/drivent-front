@@ -4,10 +4,12 @@ import { Typography } from '@material-ui/core';
 import useEnrollment from '../../../hooks/api/useEnrollment';
 import Warning from '../../../components/WarningMessage';
 import TicketTypes from '../../../components/Tickets';
+import OrderSummary from '../../../components/Payment/OrderSummary';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
   const [selectedTicketType, setSelectedTicketType] = useState(null);
+  const [screen, setScreen] = useState('ordersummary');
 
   return (
     <>
@@ -16,7 +18,10 @@ export default function Payment() {
         <Warning>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</Warning>
       ) : (
         <>
-          <TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />
+          {screen === 'tickets' && (
+            <TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />
+          )}
+          {screen === 'ordersummary' && <OrderSummary />}
         </>
       )}
     </>
