@@ -5,7 +5,7 @@ export default function HotelCard({ id, image, name, selectedHotel, setSelectedH
   return (
     <>
       <SelectHotelBox onClick={() => setSelectedHotel(id)} selected={id === selectedHotel}>
-        <img src={image} alt={name}/>
+        <img src={image} alt={name} />
         <h1>{name}</h1>
       </SelectHotelBox>
     </>
@@ -13,16 +13,16 @@ export default function HotelCard({ id, image, name, selectedHotel, setSelectedH
 }
 
 const SelectHotelBox = styled(SelectBox)`
-width: 196px;
-height: 264px;
-padding: 16px 14px;
-background-color: ${(props) => (props.selected ? '#FFEED2' : '#EBEBEB ')};
-border: none;
-border-radius: 10px;
-justify-content: flex-start;
-align-items: flex-start;
+  width: 196px;
+  height: 264px;
+  padding: 16px 14px;
+  background-color: ${(props) => (props.selected ? '#FFEED2' : '#EBEBEB ')};
+  border: none;
+  border-radius: 10px;
+  justify-content: flex-start;
+  align-items: flex-start;
 
-h1 {
+  h1 {
     font-size: 20px;
     line-height: 23.44px;
     margin-top: 10px;
@@ -34,9 +34,4 @@ h1 {
     height: 109px;
     border-radius: 5px;
   }
-
-  &:active {
-    transform: scale(0.80);
-  }
-
 `;

@@ -13,6 +13,7 @@ export const SelectBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 
   h1 {
     font-size: 16px;
@@ -28,6 +29,6 @@ export const SelectBox = styled.div`
   }
 
   &:active {
-    transform: scale(0.80);
+    transform: scale(0.8);
   }
 `;
