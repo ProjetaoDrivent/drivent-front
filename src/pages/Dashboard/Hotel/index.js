@@ -7,15 +7,21 @@ import * as useTickets from '../../../hooks/api/useTickets';
 export default function Hotel() {
   const { tickets } = useTickets.useTickets();
 
+  function IncludesHotel() {
+    if (tickets?.TicketType.includesHotel === true) {
+      return (<Hotels/>);
+    } else {
+      return (<Warning>Sua modalidade de ingresso não inclui hospedagem. Prossiga para a escolha de atividades</Warning>);
+    }
+  };
+
   return (
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
       {tickets?.status !== 'PAID' ? (
         <Warning>Você precisa ter confirmado pagamento antes de fazer a escolha da hospedagem</Warning>
-      ) : (
-        <>
-          <Hotels/>
-        </>
+      ) : (  
+        IncludesHotel()
       )}
     </>
   );
