@@ -5,6 +5,7 @@ import * as useTickets from '../../hooks/api/useTickets';
 import { SelectBox } from '../Commons/SelectBox';
 import { SubTitle } from '../Commons/SubTitle';
 import Button from '../Form/Button';
+import PaymentCard from './paymentCard';
 
 export default function OrderSummary() {
   const { tickets } = useTickets.useTickets();
@@ -28,7 +29,10 @@ export default function OrderSummary() {
         <h1>{order.isRemote === 'Online' ? 'Online' : `${order.isRemote} + ${order.includesHotel}`}</h1>
         <p>R$ {order.price}</p>
       </TicketContainer>
-      <PaymentForm>FORMULÁRIO DE PAGAMENTO</PaymentForm>
+      <PaymentForm>
+        <SubTitle>Pagamento</SubTitle>
+        <PaymentCard/>
+      </PaymentForm>
       <Button>FINALIZAR PAGAMENTO</Button>
     </>
   );
@@ -53,5 +57,4 @@ const TicketContainer = styled(SelectBox)`
 const PaymentForm = styled.div`
   height: 200px;
   margin-bottom: 30px;
-  background-color: red;
 `;

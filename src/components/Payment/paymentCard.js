@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Cards from 'react-credit-cards';
+import Cards from 'react-credit-cards-2';
+//import 'react-credit-cards/es/styles-compiled.css';
 
 export default function PaymentCard() {
   const [number, setNumber] = useState('');
@@ -10,36 +11,42 @@ export default function PaymentCard() {
 
   return (
     <div>
+      <Cards 
+        number={number}
+        name={name}
+        expiry={expiry}
+        cvc={cvc}
+        focused={focus}
+      />
       <form>
-        <Cards/>
-        <imput 
+        <input 
           type='tel'
           name='number'
-          placeholdeer='Card Number'
+          placeholder='Card Number'
           value={number}
           onChange={e => setNumber(e.target.value)}
           onFocus={e => setFocus(e.target.name)}
         />
-        <imput 
+        <input 
           type='text'
           name='name'
-          placeholdeer='Name'
+          placeholder='Name'
           value={name}
           onChange={e => setName(e.target.value)}
           onFocus={e => setFocus(e.target.name)}
         />
-        <imput 
+        <input 
           type='text'
           name='expiry'
-          placeholdeer='MM/YY Expiry'
+          placeholder='Valid Thru'
           value={expiry}
           onChange={e => setExpiry(e.target.value)}
           onFocus={e => setFocus(e.target.name)}
         />
-        <imput 
+        <input 
           type='tel'
           name='cvc'
-          placeholdeer='CVC'
+          placeholder='CVC'
           value={cvc}
           onChange={e => setCvc(e.target.value)}
           onFocus={e => setFocus(e.target.name)}

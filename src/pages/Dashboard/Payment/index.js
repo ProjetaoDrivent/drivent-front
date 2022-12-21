@@ -5,6 +5,7 @@ import useEnrollment from '../../../hooks/api/useEnrollment';
 import Warning from '../../../components/WarningMessage';
 import TicketTypes from '../../../components/Tickets';
 import * as useTickets from '../../../hooks/api/useTickets';
+import OrderSummary from '../../../components/Payment/OrderSummary';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
@@ -15,7 +16,7 @@ export default function Payment() {
   
   function HaveTicketReserved() {
     if (tickets?.status === 'RESERVED') {
-      return (<></>);
+      return (<OrderSummary/>);
     } else {
       return (<TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />);
     }
