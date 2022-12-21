@@ -56,5 +56,5 @@ const TicketContainer = styled(SelectBox)`
 
 const PaymentForm = styled.div`
   height: 200px;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 `;
