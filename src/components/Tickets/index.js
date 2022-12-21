@@ -1,24 +1,23 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import { Typography } from '@material-ui/core';
 import useTicket from '../../hooks/api/useTicket';
 import { SubTitle } from '../Commons/SubTitle';
 import TicketType from './TicketType';
 
-export default function Tickets({ selectedTicket, setSelectedTicket }) {
+export default function Tickets({ selectedTicket, setSelectedTicketType, inputTickets }) {
   const { tickets } = useTicket();
-
   return (
     <>
-      <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
       <SubTitle>Primeiro, escolha sua modalidade de ingresso</SubTitle>
       <TicketsContainer>
-        {tickets ? (
-          tickets.map((ticket) => (
+        {inputTickets ? (
+          inputTickets.map((ticket) => (
             <TicketType
               key={ticket.id}
-              {...ticket}
+              ticket={ticket}
               selectedTicket={selectedTicket}
-              setSelectedTicket={setSelectedTicket}
+              setSelectedTicket={setSelectedTicketType}
             />
           ))
         ) : (
