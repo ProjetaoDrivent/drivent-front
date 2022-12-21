@@ -1,23 +1,35 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { Typography } from '@material-ui/core';
-import useTicket from '../../hooks/api/useTicket';
+import * as useTickets from '../../hooks/api/useTickets';
 import { SubTitle } from '../Commons/SubTitle';
-import TicketType from './TicketType';
+import TicketTypeCard from './TicketTypeCard';
 
-export default function Tickets({ selectedTicket, setSelectedTicketType, inputTickets }) {
-  const { tickets } = useTicket();
+export default function TicketTypes({ selectedTicketType, setSelectedTicketType }) {
+  let { ticketTypes } = useTickets.useTicketType();
+
+  const [ticketTypesToShow, setTicketTypesToShow] = useState([]);
+  
+  ticketTypes?.forEach((ticket) => {
+    let duplicated  = ticketTypesToShow.findIndex(redticket => {
+      return ticket.name === redticket.name;
+    }) > -1;
+
+    if(!duplicated) {
+      ticketTypesToShow.push(ticket);
+    }
+  });
+  
   return (
     <>
       <SubTitle>Primeiro, escolha sua modalidade de ingresso</SubTitle>
       <TicketsContainer>
-        {inputTickets ? (
-          inputTickets.map((ticket) => (
-            <TicketType
-              key={ticket.id}
-              ticket={ticket}
-              selectedTicket={selectedTicket}
-              setSelectedTicket={setSelectedTicketType}
+        {ticketTypesToShow ? (
+          ticketTypesToShow.map((ticketType) => (
+            <TicketTypeCard
+              key={ticketType.id}
+              {...ticketType}
+              selectedTicketType={selectedTicketType}
+              setSelectedTicketType={setSelectedTicketType}
             />
           ))
         ) : (
@@ -27,10 +39,6 @@ export default function Tickets({ selectedTicket, setSelectedTicketType, inputTi
     </>
   );
 }
-
-const StyledTypography = styled(Typography)`
-  margin-bottom: 20px !important;
-`;
 
 const TicketsContainer = styled.div`
   display: flex;

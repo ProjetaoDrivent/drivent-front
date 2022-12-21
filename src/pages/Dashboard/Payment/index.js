@@ -17,26 +17,11 @@ export default function Payment() {
         <Warning>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</Warning>
       ) : (
         <>
-          <TicketTypes 
-            selectedTicket={selectedTicketType}
-            setSelectedTicketType={setSelectedTicketType}
-            inputTickets={[
-              {
-                id: 1,
-                name: 'Online',
-                price: 10000, 
-              },
-              {
-                id: 2,
-                name: 'Presencial',
-                price: 25000
-              }
-            ]}
-          />
+          <TicketTypes selectedTicket={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />
         </>
       )}
 
-      {selectedTicketType.name ? (
+      {selectedTicketType?.name ? (
         <ReservationPreview selectedTicketType={selectedTicketType} />
       ) : (
         <></>
