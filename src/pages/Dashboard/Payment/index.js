@@ -8,7 +8,8 @@ import ReservationPreview from './ReservationPreview';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
-  const [selectedTicketType, setSelectedTicketType] = useState({});
+  const [selectedTicketType, setSelectedTicketType] = useState(null);
+  const [ticketTypes, setTicketTypes] = useState([]);
 
   return (
     <>
@@ -17,12 +18,16 @@ export default function Payment() {
         <Warning>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</Warning>
       ) : (
         <>
-          <TicketTypes selectedTicket={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />
+          <TicketTypes 
+            selectedTicketType={selectedTicketType} 
+            setSelectedTicketType={setSelectedTicketType}
+            setTicketTypes={setTicketTypes} />
         </>
       )}
 
-      {selectedTicketType?.name ? (
-        <ReservationPreview selectedTicketType={selectedTicketType} />
+      {selectedTicketType ? (
+        <ReservationPreview 
+          ticketOptions={ticketTypes?.filter(ticketType => ticketType.name === selectedTicketType)} />
       ) : (
         <></>
       )}

@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { SubTitle } from '../../../components/Commons/SubTitle';
 
-export default function ReservationPreview({ selectedTicketType }) {
+export default function ReservationPreview({ ticketOptions }) {
   return (
     <>
-      {(selectedTicketType.name.toLowerCase() === 'online') ? (
+      {(ticketOptions[0].name.toLowerCase() === 'online') ? (
         <>
-          <SubTitle variant="h4">Fechado! O total ficou em R$ {Number(selectedTicketType.price) / 100}. Agora é só confirmar:</SubTitle>
+          <SubTitle variant="h4">Fechado! O total ficou em R$ {Number(ticketOptions[0].price) / 100}. Agora é só confirmar:</SubTitle>
           <BookTicketButton ><span>RESERVAR INGRESSO</span></BookTicketButton>
         </>
       ) : (

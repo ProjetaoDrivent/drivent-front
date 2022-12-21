@@ -4,9 +4,9 @@ import * as useTickets from '../../hooks/api/useTickets';
 import { SubTitle } from '../Commons/SubTitle';
 import TicketTypeCard from './TicketTypeCard';
 
-export default function TicketTypes({ selectedTicketType, setSelectedTicketType }) {
-  let { ticketTypes } = useTickets.useTicketType();
-
+export default function TicketTypes({ selectedTicketType, setSelectedTicketType, setTicketTypes }) {
+  const { ticketTypes } = useTickets.useTicketType();
+  setTicketTypes(ticketTypes);
   const [ticketTypesToShow, setTicketTypesToShow] = useState([]);
   
   ticketTypes?.forEach((ticket) => {
