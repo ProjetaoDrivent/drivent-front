@@ -8,6 +8,7 @@ import TicketTypes from '../../../components/Tickets';
 export default function Payment() {
   const { enrollment } = useEnrollment();
   const [selectedTicketType, setSelectedTicketType] = useState(null);
+  const [selectedTicketIncludeHotel, setSelectedTicketIncludeHotel] = useState(null);
 
   return (
     <>
@@ -16,7 +17,8 @@ export default function Payment() {
         <Warning>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</Warning>
       ) : (
         <>
-          <TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />
+          <TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} 
+            selectedTicketIncludeHotel={selectedTicketIncludeHotel} setSelectedTicketIncludeHotel={setSelectedTicketIncludeHotel} />
         </>
       )}
     </>
