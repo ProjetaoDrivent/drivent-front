@@ -5,7 +5,7 @@ import * as useTickets from '../../hooks/api/useTickets';
 import { SelectBox } from '../Commons/SelectBox';
 import { SubTitle } from '../Commons/SubTitle';
 import Button from '../Form/Button';
-import PaymentCard from './paymentCard';
+import PaymentCard from './PaymentCard';
 
 export default function OrderSummary() {
   const { tickets } = useTickets.useTickets();
@@ -31,7 +31,7 @@ export default function OrderSummary() {
       </TicketContainer>
       <PaymentForm>
         <SubTitle>Pagamento</SubTitle>
-        <PaymentCard/>
+        <PaymentCard ticketId={tickets?.id}/>
       </PaymentForm>
       <Button>FINALIZAR PAGAMENTO</Button>
     </>

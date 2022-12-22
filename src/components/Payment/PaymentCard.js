@@ -2,13 +2,38 @@ import React, { useState } from 'react';
 import Cards from 'react-credit-cards-2';
 import styled from 'styled-components';
 import 'react-credit-cards-2/es/styles-compiled.css';
+import PaymentForm from './PaymentStyledForm';
+import { toast } from 'react-toastify';
+import Button from '../Form/Button';
 
-export default function PaymentCard() {
+export default function PaymentCard( { ticketId } ) {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
   const [focus, setFocus] = useState('');
+  async function submit(event) {
+    event.preventDefault();
+
+    try {
+      // console.log({
+      //   ticketId: ticketId,
+      //   cardData: {
+      //     issuer: 'Visa',
+      //     number: number,
+      //     name: name,
+      //     expirationDate: expiry,
+      //     cvv: cvc
+      //   }      
+      // });
+      // const paymentData = await signIn(email, password);
+      // setUserData(userData);
+      // toast('Pagmento realizado com sucesso!');
+      // navigate('/dashboard');
+    } catch (err) {
+      toast('Não foi possível realizar o pagamento!');
+    }
+  } 
 
   return (
     <Payment>
@@ -20,7 +45,7 @@ export default function PaymentCard() {
         focused={focus}
       />
       <PaymentForm>
-        <form>
+        <form onSubmit={submit}>
           <input 
             type='tel'
             name='number'
@@ -57,6 +82,7 @@ export default function PaymentCard() {
               onFocus={e => setFocus(e.target.name)}
             />
           </div>
+          <Button type="submit">FINALIZAR PAGAMENTO</Button>
         </form>
       </PaymentForm>
     </Payment>
@@ -67,36 +93,4 @@ const Payment = styled.div`
   margin-top: 10px;
   display: flex;
   gap: 30px;
-`;
-
-const PaymentForm = styled.div`
-  width: 350px;
-  .date{
-    width: 220px;
-  }
-  .cvc{
-    width: 120px;
-  }
-  form{
-    display: flex;
-    flex-direction: column;
-  }
-  .special{
-    width: 350px;
-    display: flex;
-    justify-content: space-between;
-  }
-  input{
-    border-style: solid;
-    box-shadow: 0, 0, 0, 0;
-    outline: 0;
-    height: 45px;
-    border-radius: 4px;
-    font-size: 20px;
-    font-weight: 400;
-    padding-left: 5px;
-    margin-bottom: 20px;
-    color: gray;
-  }
-  gap: 20px;
 `;
