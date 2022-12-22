@@ -38,3 +38,21 @@ export function useTickets() {
     getTickets,
   };
 }
+
+export function useBookTicket(ticketTypeId) {
+  const token = useToken();
+  
+  const {
+    data: tickets,
+    loading: ticketsLoading,
+    error: ticketsError,
+    act: postTickets,
+  } = useAsync(() => ticketsApi.postTicket(token, ticketTypeId));
+
+  return {
+    tickets,
+    ticketsLoading,
+    ticketsError,
+    postTickets,
+  };
+}

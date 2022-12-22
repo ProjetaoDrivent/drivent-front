@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 import { SubTitle } from '../../../components/Commons/SubTitle';
+import * as useTickets from '../../../hooks/api/useTickets';
 
 export default function ReservationPreview({ ticketOptions }) {
+  const bookTicket = (ticketTypeId) => useTickets.useBookTicket(ticketTypeId);
+  const bookOrder = () => {
+    const book = bookTicket(ticketOptions[0].id);  
+  };
+  
   return (
     <>
       {(ticketOptions[0].name.toLowerCase() === 'online') ? (
         <>
           <SubTitle variant="h4">Fechado! O total ficou em R$ {Number(ticketOptions[0].price) / 100}. Agora é só confirmar:</SubTitle>
-          <BookTicketButton ><span>RESERVAR INGRESSO</span></BookTicketButton>
+          <BookTicketButton onClick={bookOrder} ><span>RESERVAR INGRESSO</span></BookTicketButton>
         </>
       ) : (
         <>Coming Soon!</>
