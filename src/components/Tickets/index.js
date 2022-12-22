@@ -3,7 +3,7 @@ import * as useTickets from '../../hooks/api/useTickets';
 import { SubTitle } from '../Commons/SubTitle';
 import TicketTypeCard from './TicketTypeCard';
 
-export default function TicketTypes({ selectedTicketType, setSelectedTicketType }) {
+export default function TicketTypes({ selectedTicketType, setSelectedTicketType, selectedTicketIncludeHotel, setSelectedTicketIncludeHotel }) {
   let { ticketTypes } = useTickets.useTicketType();
 
   let ticketTypesToShow = [];
@@ -12,10 +12,13 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType 
     let duplicated  = ticketTypesToShow.findIndex(redticket => {
       return ticket.name === redticket.name;
     }) > -1;
-
     if(!duplicated) {
       ticketTypesToShow.push(ticket);
     }
+  });
+  
+  let ticketTypeIncludeHotel = ticketTypes?.filter( ticket => {
+    return ticket.name !== 'Remoto';
   });
   
   return (
@@ -35,6 +38,30 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType 
           <></>
         )}
       </TicketsContainer>
+      
+      {selectedTicketType === 'Presencial' ? (
+        <>
+          <SubTitle>Ótimo! Agora escolha sua modalidade de hospedagem</SubTitle>
+          <TicketsContainer>
+            {ticketTypeIncludeHotel ? (
+              ticketTypeIncludeHotel.map((ticketIncludeHotel) => (
+                <TicketTypeCard
+                  key={ticketIncludeHotel.id}
+                  { ... { ...ticketIncludeHotel, 
+                    name: ticketIncludeHotel.includesHotel? 'Sem Hotel':'Com Hotel', 
+                    price: ticketIncludeHotel.includesHotel? 0:350 } }
+                  selectedTicketType={selectedTicketIncludeHotel}
+                  setSelectedTicketType={setSelectedTicketIncludeHotel}
+                />
+              ))
+            ) : (
+              <></>
+            )}
+          </TicketsContainer>
+        </>
+      ) :
+        <></>
+      }
     </>
   );
 }
