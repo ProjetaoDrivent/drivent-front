@@ -1,11 +1,15 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { SubTitle } from '../../../components/Commons/SubTitle';
 import * as useTickets from '../../../hooks/api/useTickets';
+import useToken from '../../../hooks/useToken';
+import { postTicket } from '../../../services/ticketsApi';
 
-export default function ReservationPreview({ ticketOptions }) {
-  const bookTicket = (ticketTypeId) => useTickets.useBookTicket(ticketTypeId);
+export default function ReservationPreview({ ticketOptions }) { 
+  const token = useToken(); 
   const bookOrder = () => {
-    const book = bookTicket(ticketOptions[0].id);  
+    console.log(token, ticketOptions[0].id);
+    postTicket(token, ticketOptions[0].id);
   };
   
   return (
@@ -13,7 +17,7 @@ export default function ReservationPreview({ ticketOptions }) {
       {(ticketOptions[0].name.toLowerCase() === 'online') ? (
         <>
           <SubTitle variant="h4">Fechado! O total ficou em R$ {Number(ticketOptions[0].price) / 100}. Agora é só confirmar:</SubTitle>
-          <BookTicketButton onClick={bookOrder} ><span>RESERVAR INGRESSO</span></BookTicketButton>
+          <BookTicketButton onClick={() => bookOrder()} ><span>RESERVAR INGRESSO</span></BookTicketButton>
         </>
       ) : (
         <>Coming Soon!</>

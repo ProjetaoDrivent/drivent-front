@@ -46,13 +46,13 @@ export function useBookTicket(ticketTypeId) {
     data: tickets,
     loading: ticketsLoading,
     error: ticketsError,
-    act: postTickets,
+    act: postTicket,
   } = useAsync(() => ticketsApi.postTicket(token, ticketTypeId));
 
   return {
     tickets,
     ticketsLoading,
     ticketsError,
-    postTickets,
+    postTicket,
   };
 }
