@@ -4,7 +4,6 @@ import { Typography } from '@material-ui/core';
 import useEnrollment from '../../../hooks/api/useEnrollment';
 import Warning from '../../../components/WarningMessage';
 import TicketTypes from '../../../components/Tickets';
-import ReservationPreview from './ReservationPreview';
 import * as useTickets from '../../../hooks/api/useTickets';
 import OrderSummary from '../../../components/Payment/OrderSummary';
 
