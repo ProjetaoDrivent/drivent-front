@@ -20,3 +20,19 @@ export default function usePayment() {
     getPaymentsInformations,
   };
 }
+
+export function usePostPayment() {
+  const token = useToken();
+
+  const {
+    loading: paymentLoading,
+    error: paymentError,
+    act: postPayment
+  } = useAsync((data) => paymentApi.postPayment(data, token), false);
+
+  return {
+    paymentLoading,
+    paymentError,
+    postPayment
+  };
+}
