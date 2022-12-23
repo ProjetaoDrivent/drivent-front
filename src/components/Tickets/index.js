@@ -3,10 +3,13 @@ import { useState } from 'react';
 import * as useTickets from '../../hooks/api/useTickets';
 import { SubTitle } from '../Commons/SubTitle';
 import TicketTypeCard from './TicketTypeCard';
+import Button from '../Form/Button';
+import BookOrderButton from '../Payment/BookOrderButton';
 
-export default function TicketTypes({ selectedTicketType, setSelectedTicketType, setTicketTypes, selectedTicketIncludeHotel, setSelectedTicketIncludeHotel }) {
-  const { ticketTypes } = useTickets.useTicketType();
+export default function TicketTypes({ selectedTicketType, setSelectedTicketType, setTicketTypes, selectedTicketIncludeHotel, setSelectedTicketIncludeHotel, totalPrice, setTotalPrice }) {
+  let { ticketTypes } = useTickets.useTicketType();
   setTicketTypes(ticketTypes);
+
   const [ticketTypesToShow, setTicketTypesToShow] = useState([]);
   
   ticketTypes?.forEach((ticket) => {
@@ -21,7 +24,43 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType,
   let ticketTypeIncludeHotel = ticketTypes?.filter( ticket => {
     return ticket.name !== 'Online';
   });
-  
+
+  let ticketTypeOnline = ticketTypes?.filter( ticket => {
+    return ticket.name !== 'Presencial';
+  });
+
+  function ChangePrice(value) {
+    setTotalPrice(value);
+  };
+
+  if (selectedTicketType === 'Online') {
+    const value = ticketTypeOnline[0].price;
+    ChangePrice(value);
+  };
+
+  if (selectedTicketType === 'Presencial') {
+    let value = ticketTypeIncludeHotel[0].price;
+    console.log(value);
+    if(selectedTicketIncludeHotel === 'Com Hotel') {
+      value += 350; 
+    }
+    ChangePrice(value);
+  };
+
+  function ShowPrice() {
+    if (selectedTicketType === null || setSelectedTicketIncludeHotel === null) {
+      return(<></>);
+    } else {
+      return(
+        <>
+          <SubTitle>Fechado! O total ficou em <strong>R$ {totalPrice}</strong>. Agora é só confirmar</SubTitle>
+          <BookOrderButton 
+            ticketOptions={ticketTypes?.filter(ticketType => ticketType.name === selectedTicketType)} />
+        </>
+      );
+    }
+  };
+
   return (
     <>
       <SubTitle>Primeiro, escolha sua modalidade de ingresso</SubTitle>
@@ -63,6 +102,7 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType,
       ) :
         <></>
       }
+      {ShowPrice()}
     </>
   );
 }
