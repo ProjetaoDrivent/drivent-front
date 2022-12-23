@@ -1,13 +1,16 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 import * as useTickets from '../../hooks/api/useTickets';
 import { SubTitle } from '../Commons/SubTitle';
 import TicketTypeCard from './TicketTypeCard';
 import Button from '../Form/Button';
+import BookOrderButton from '../Payment/BookOrderButton';
 
-export default function TicketTypes({ selectedTicketType, setSelectedTicketType, selectedTicketIncludeHotel, setSelectedTicketIncludeHotel, totalPrice, setTotalPrice }) {
+export default function TicketTypes({ selectedTicketType, setSelectedTicketType, setTicketTypes, selectedTicketIncludeHotel, setSelectedTicketIncludeHotel, totalPrice, setTotalPrice }) {
   let { ticketTypes } = useTickets.useTicketType();
+  setTicketTypes(ticketTypes);
 
-  let ticketTypesToShow = [];
+  const [ticketTypesToShow, setTicketTypesToShow] = useState([]);
   
   ticketTypes?.forEach((ticket) => {
     let duplicated  = ticketTypesToShow.findIndex(redticket => {
@@ -51,7 +54,8 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType,
       return(
         <>
           <SubTitle>Fechado! O total ficou em <strong>R$ {totalPrice}</strong>. Agora é só confirmar</SubTitle>
-          <Button>RESERVAR INGRESSO</Button>
+          <BookOrderButton 
+            ticketOptions={ticketTypes?.filter(ticketType => ticketType.name === selectedTicketType)} />
         </>
       );
     }
