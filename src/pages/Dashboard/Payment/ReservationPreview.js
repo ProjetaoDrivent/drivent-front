@@ -8,7 +8,6 @@ import { postTicket } from '../../../services/ticketsApi';
 export default function ReservationPreview({ ticketOptions }) { 
   const token = useToken(); 
   const bookOrder = () => {
-    console.log(token, ticketOptions[0].id);
     postTicket(token, ticketOptions[0].id);
   };
   
@@ -20,7 +19,7 @@ export default function ReservationPreview({ ticketOptions }) {
           <BookTicketButton onClick={() => bookOrder()} ><span>RESERVAR INGRESSO</span></BookTicketButton>
         </>
       ) : (
-        <>Coming Soon!</>
+        <></>
       )
 
       }

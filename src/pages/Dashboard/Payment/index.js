@@ -10,6 +10,7 @@ export default function Payment() {
   const { enrollment } = useEnrollment();
   const [selectedTicketType, setSelectedTicketType] = useState(null);
   const [ticketTypes, setTicketTypes] = useState([]);
+  const [selectedTicketIncludeHotel, setSelectedTicketIncludeHotel] = useState(null);
 
   return (
     <>
@@ -21,7 +22,9 @@ export default function Payment() {
           <TicketTypes 
             selectedTicketType={selectedTicketType} 
             setSelectedTicketType={setSelectedTicketType}
-            setTicketTypes={setTicketTypes} />
+            setTicketTypes={setTicketTypes} 
+            selectedTicketIncludeHotel={selectedTicketIncludeHotel} 
+            setSelectedTicketIncludeHotel={setSelectedTicketIncludeHotel} />
         </>
       )}
 
