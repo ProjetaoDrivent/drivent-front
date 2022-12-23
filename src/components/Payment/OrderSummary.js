@@ -33,7 +33,6 @@ export default function OrderSummary() {
         <SubTitle>Pagamento</SubTitle>
         <PaymentCard ticketId={tickets?.id}/>
       </PaymentForm>
-      <Button>FINALIZAR PAGAMENTO</Button>
     </>
   );
 }

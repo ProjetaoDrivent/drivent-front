@@ -11,17 +11,20 @@ export default function Payment() {
   const { enrollment } = useEnrollment();
   const { tickets } = useTickets.useTickets();
   const [selectedTicketType, setSelectedTicketType] = useState(null);
-
+  const [selectedTicketIncludeHotel, setSelectedTicketIncludeHotel] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0);
   //verificar se é PAID futuramente e mostrar tela de confirmação de pagamento
   
   function HaveTicketReserved() {
     if (tickets?.status === 'RESERVED') {
       return (<OrderSummary/>);
     } else {
-      return (<TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} />);
+      return (<TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} 
+        selectedTicketIncludeHotel={selectedTicketIncludeHotel} setSelectedTicketIncludeHotel={setSelectedTicketIncludeHotel} 
+        totalPrice={totalPrice} setTotalPrice={setTotalPrice}/>);
     }
   };
-
+  console.log(totalPrice);
   return (
     <>
       <StyledTypography variant="h4">Ingresso e Pagamento</StyledTypography>
