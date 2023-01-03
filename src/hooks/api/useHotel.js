@@ -3,7 +3,7 @@ import useToken from '../useToken';
 
 import * as hotelApi from '../../services/hotelApi';
 
-export default function useHotel() {
+export function useHotel() {
   const token = useToken();
 
   const {
@@ -18,5 +18,23 @@ export default function useHotel() {
     hotelsLoading,
     hotelsError,
     getHotels,
+  };
+}
+
+export function useHotelById() {
+  const token = useToken();
+
+  const {
+    data: hotelsId,
+    loading: hotelsIdLoading,
+    error: hotelsIdError,
+    act: getHotelsById,
+  } = useAsync(() => hotelApi.getHotelsById(token));
+
+  return {
+    hotelsId,
+    hotelsIdLoading,
+    hotelsIdError,
+    getHotelsById,
   };
 }

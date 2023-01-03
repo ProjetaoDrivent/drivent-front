@@ -6,7 +6,7 @@ import * as useTickets from '../../../hooks/api/useTickets';
 
 export default function Hotel() {
   const { tickets } = useTickets.useTickets();
-
+  
   function IncludesHotel() {
     if (tickets?.TicketType.includesHotel === true) {
       return (<Hotels/>);
