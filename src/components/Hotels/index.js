@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import * as useHotel from '../../hooks/api/useHotel';
 import { SubTitle } from '../Commons/SubTitle';
 import HotelCard from './HotelCard';
+import HotelRooms from './HotelRooms';
 
 export default function Hotels() {
   const { hotels } = useHotel.useHotel();
@@ -12,18 +13,31 @@ export default function Hotels() {
     <>
       <SubTitle>Primeiro, escolha seu hotel</SubTitle>
       <HotelsContainer>
-        {hotels ? (
-          hotels.map((hotel) => (
-            <HotelCard
-              key={hotel.id}
-              {...hotel}
-              selectedHotel={selectedHotel}
-              setSelectedHotel={setSelectedHotel}
-            />
-          ))
+        <div className='cards'>
+          {hotels ? (
+            hotels.map((hotel) => (
+              <HotelCard
+                key={hotel.id}
+                {...hotel}
+                selectedHotel={selectedHotel}
+                setSelectedHotel={setSelectedHotel}
+              />
+            ))
+          ) : (
+            <></>
+          )}
+        </div>
+
+        {selectedHotel ? (
+          <>
+            <SubTitle>Ótima pedida! Agora escolha seu quarto</SubTitle>
+            <HotelRooms id={selectedHotel} />
+          </>
         ) : (
           <></>
-        )}
+        )
+
+        }
       </HotelsContainer>
     </>
   );
@@ -31,5 +45,10 @@ export default function Hotels() {
 
 const HotelsContainer = styled.div`
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+
+  .cards {
+    display: flex;
+    gap: 24px;
+  }
 `;
