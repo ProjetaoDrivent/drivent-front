@@ -40,7 +40,6 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType,
 
   if (selectedTicketType === 'Presencial') {
     let value = ticketTypeIncludeHotel[0].price;
-    console.log(value);
     if(selectedTicketIncludeHotel === 'Com Hotel') {
       value += 350; 
     }
@@ -48,9 +47,12 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType,
   };
 
   function ShowPrice() {
-    if (selectedTicketType === null || setSelectedTicketIncludeHotel === null) {
+    if (selectedTicketType === null) {
       return(<></>);
     } else {
+      if ( selectedTicketType === 'Presencial' && selectedTicketIncludeHotel === null) {
+        return(<></>);
+      }
       return(
         <>
           <SubTitle>Fechado! O total ficou em <strong>R$ {totalPrice}</strong>. Agora é só confirmar</SubTitle>
