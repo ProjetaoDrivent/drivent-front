@@ -15,23 +15,26 @@ export default function HotelCard({ id, image, name, selectedHotel, setSelectedH
   let single = false;
   let double = false;
   let triple = false;
+  let capacity = 0;
+  let bookings = 0;  
 
   if (roomData) {
     roomData.map(room => {
+      capacity += room.capacity;
+      bookings += room.Booking.length;
       if (room.capacity === 1) return single = true;
       if (room.capacity === 2) return double = true;
       if (room.capacity >= 3) return triple = true;
       return false;
     });
   }
-  
-  let hotelRomms = [];
-  let roomTypes;
+  const vacancies = capacity - bookings;
 
+  let hotelRomms = [];
   if (single) hotelRomms.push('Single');
   if (double) hotelRomms.push('Double');
   if (triple) hotelRomms.push('Triple');
-  
+  let roomTypes;
   if (hotelRomms.length === 1) roomTypes = hotelRomms[0];
   if (hotelRomms.length === 2) roomTypes = `${hotelRomms[0]} e ${hotelRomms[1]}`;
   if (hotelRomms.length === 3) roomTypes = `${hotelRomms[0]}, ${hotelRomms[1]} e ${hotelRomms[2]}`;
@@ -43,6 +46,8 @@ export default function HotelCard({ id, image, name, selectedHotel, setSelectedH
         <h1>{name}</h1>
         <h3>Tipos de acomodação</h3>
         <h4>{roomTypes}</h4>
+        <h3>Vagas disponíveis</h3>
+        <h4>{vacancies}</h4>
       </SelectHotelBox>
     </>
   );
