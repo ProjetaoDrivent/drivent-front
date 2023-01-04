@@ -6,6 +6,7 @@ import { SelectBox } from '../Commons/SelectBox';
 import { SubTitle } from '../Commons/SubTitle';
 import Button from '../Form/Button';
 import PaymentCard from './PaymentCard';
+import { TicketContainer } from '../Commons/TicketContainer';
 
 export default function OrderSummary() {
   const { tickets } = useTickets.useTickets();
@@ -36,22 +37,6 @@ export default function OrderSummary() {
     </>
   );
 }
-
-const TicketContainer = styled(SelectBox)`
-  height: 108px;
-  width: 290px;
-  background-color: #ffeed2;
-  border: none;
-  cursor: inherit;
-
-  h1 {
-    margin-bottom: 8px;
-  }
-
-  &:active {
-    transform: none;
-  }
-`;
 
 const PaymentForm = styled.div`
   height: 200px;
