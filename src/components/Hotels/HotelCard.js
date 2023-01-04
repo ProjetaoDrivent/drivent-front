@@ -1,16 +1,48 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import * as useHotel from '../../hooks/api/useHotel';
 import { SelectBox } from '../Commons/SelectBox';
 
 export default function HotelCard({ id, image, name, selectedHotel, setSelectedHotel }) {
+  const { getRooms } = useHotel.useRooms(id);
+  const [roomData, setRoomData] = useState();
+
+  useEffect(async() => {
+    const { Rooms } = await getRooms();
+    setRoomData(Rooms);
+  }, []);
+
+  let single = false;
+  let double = false;
+  let triple = false;
+
+  if (roomData) {
+    roomData.map(room => {
+      if (room.capacity === 1) return single = true;
+      if (room.capacity === 2) return double = true;
+      if (room.capacity >= 3) return triple = true;
+      return false;
+    });
+  }
+  
+  let hotelRomms = [];
+  let roomTypes;
+
+  if (single) hotelRomms.push('Single');
+  if (double) hotelRomms.push('Double');
+  if (triple) hotelRomms.push('Triple');
+  
+  if (hotelRomms.length === 1) roomTypes = hotelRomms[0];
+  if (hotelRomms.length === 2) roomTypes = `${hotelRomms[0]} e ${hotelRomms[1]}`;
+  if (hotelRomms.length === 3) roomTypes = `${hotelRomms[0]}, ${hotelRomms[1]} e ${hotelRomms[2]}`;
+
   return (
     <>
       <SelectHotelBox onClick={() => setSelectedHotel(id)} selected={id === selectedHotel}>
         <img src={image} alt={name} />
         <h1>{name}</h1>
         <h3>Tipos de acomodação</h3>
-        <h4>Single, Double e Triple</h4>
-        <h3>Vagas disponíveis</h3>
-        <h4>103</h4>
+        <h4>{roomTypes}</h4>
       </SelectHotelBox>
     </>
   );

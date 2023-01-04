@@ -6,9 +6,8 @@ import HotelCard from './HotelCard';
 
 export default function Hotels() {
   const { hotels } = useHotel.useHotel();
-  const { hotelsById } = useHotel.useHotelById();
   const [selectedHotel, setSelectedHotel] = useState(0);
-  console.log(hotelsById);
+ 
   return (
     <>
       <SubTitle>Primeiro, escolha seu hotel</SubTitle>

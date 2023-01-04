@@ -21,20 +21,20 @@ export function useHotel() {
   };
 }
 
-export function useHotelById() {
+export function useRooms(hotelId) {
   const token = useToken();
 
   const {
-    data: hotelsId,
-    loading: hotelsIdLoading,
-    error: hotelsIdError,
-    act: getHotelsById,
-  } = useAsync(() => hotelApi.getHotelsById(token));
+    data: rooms,
+    loading: roomsLoading,
+    error: roomsError,
+    act: getRooms,
+  } = useAsync(() => hotelApi.getRooms(token, hotelId));
 
   return {
-    hotelsId,
-    hotelsIdLoading,
-    hotelsIdError,
-    getHotelsById,
+    rooms,
+    roomsLoading,
+    roomsError,
+    getRooms,
   };
 }
