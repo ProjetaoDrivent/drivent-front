@@ -13,7 +13,7 @@ export default function BookOrderButton({ ticketOptions }) {
   
   return (
     <>
-      {(ticketOptions[0].name.toLowerCase() === 'online') ? (
+      {(ticketOptions[0].name.toLowerCase() === 'online'|| 'presencial') ? (
         <BookTicketButton onClick={() => bookOrder()} ><span>RESERVAR INGRESSO</span></BookTicketButton>
       ) : (
         <></>
