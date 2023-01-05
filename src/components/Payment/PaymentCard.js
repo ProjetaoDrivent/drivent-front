@@ -3,6 +3,8 @@ import Cards from 'react-credit-cards-2';
 import styled from 'styled-components';
 import 'react-credit-cards-2/es/styles-compiled.css';
 import PaymentForm from './PaymentStyledForm';
+import { postPayment } from '../../services/paymentsApi';
+import useToken from '../../hooks/useToken';
 import { toast } from 'react-toastify';
 import Button from '../Form/Button';
 
@@ -12,24 +14,34 @@ export default function PaymentCard( { ticketId } ) {
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
   const [focus, setFocus] = useState('');
-  async function submit(event) {
-    event.preventDefault();
+  const [issuer, setIssuer] = useState('');
 
+  function handleCallback({ issuer }, isValid) {
+    if (isValid) {
+      setIssuer(issuer);
+    }
+  };
+
+  function handleForm(event)  {
+    event.preventDefault();
+  };
+
+  async function submit() {
     try {
-      // console.log({
-      //   ticketId: ticketId,
-      //   cardData: {
-      //     issuer: 'Visa',
-      //     number: number,
-      //     name: name,
-      //     expirationDate: expiry,
-      //     cvv: cvc
-      //   }      
-      // });
-      // const paymentData = await signIn(email, password);
-      // setUserData(userData);
-      // toast('Pagmento realizado com sucesso!');
-      // navigate('/dashboard');
+      const paymentData = {
+        ticketId: ticketId,
+        cardData: {
+          issuer: issuer,
+          number: number,
+          name: name,
+          expirationDate: expiry,
+          cvv: cvc
+        }      
+      };
+      const token = useToken(); 
+      const ok = postPayment(token, paymentData);
+      console.log(ok);
+      toast('Pagmento realizado com sucesso!');
     } catch (err) {
       toast('Não foi possível realizar o pagamento!');
     }
@@ -43,9 +55,10 @@ export default function PaymentCard( { ticketId } ) {
         expiry={expiry}
         cvc={cvc}
         focused={focus}
+        callback={handleCallback}
       />
       <PaymentForm>
-        <form onSubmit={submit}>
+        <form onSubmit={handleForm}>
           <input 
             type='tel'
             name='number'
@@ -81,8 +94,13 @@ export default function PaymentCard( { ticketId } ) {
               onChange={e => setCvc(e.target.value)}
               onFocus={e => setFocus(e.target.name)}
             />
+            <input 
+              type='hidden' 
+              name='issuer' 
+              value={issuer} 
+            />
           </div>
-          <Button type="submit">FINALIZAR PAGAMENTO</Button>
+          <Button type="submit" onClick={() => submit()}>FINALIZAR PAGAMENTO</Button>
         </form>
       </PaymentForm>
     </Payment>
