@@ -57,7 +57,7 @@ export default function TicketTypes({ selectedTicketType, setSelectedTicketType,
         <>
           <SubTitle>Fechado! O total ficou em <strong>R$ {totalPrice}</strong>. Agora é só confirmar</SubTitle>
           <BookOrderButton 
-            ticketOptions={ticketTypes?.filter(ticketType => ticketType.name === selectedTicketType)} />
+            ticketOptions={ticketTypes?.filter(ticketType => ticketType.name === selectedTicketType)} ticketIncludeHotel={selectedTicketIncludeHotel} />
         </>
       );
     }

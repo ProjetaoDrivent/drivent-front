@@ -15,6 +15,7 @@ export default function PaymentCard( { ticketId } ) {
   const [cvc, setCvc] = useState('');
   const [focus, setFocus] = useState('');
   const [issuer, setIssuer] = useState('');
+  const token = useToken(); 
 
   function handleCallback({ issuer }, isValid) {
     if (isValid) {
@@ -38,8 +39,7 @@ export default function PaymentCard( { ticketId } ) {
           cvv: cvc
         }      
       };
-      const token = useToken(); 
-      const ok = postPayment(token, paymentData);
+      const ok = postPayment(paymentData, token);
       console.log(ok);
       toast('Pagmento realizado com sucesso!');
     } catch (err) {
