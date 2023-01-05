@@ -6,11 +6,13 @@ import Warning from '../../../components/WarningMessage';
 import TicketTypes from '../../../components/Tickets';
 import * as useTickets from '../../../hooks/api/useTickets';
 import OrderSummary from '../../../components/Payment/OrderSummary';
+import PaymentConfirmation from '../../../components/Payment/PaymentConfirmation';
 
 export default function Payment() {
   const { enrollment } = useEnrollment();
   const { tickets } = useTickets.useTickets();
   const [selectedTicketType, setSelectedTicketType] = useState(null);
+  const [ticketTypes, setTicketTypes] = useState([]);
   const [selectedTicketIncludeHotel, setSelectedTicketIncludeHotel] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   //verificar se é PAID futuramente e mostrar tela de confirmação de pagamento
@@ -19,9 +21,19 @@ export default function Payment() {
     if (tickets?.status === 'RESERVED') {
       return (<OrderSummary/>);
     } else {
-      return (<TicketTypes selectedTicketType={selectedTicketType} setSelectedTicketType={setSelectedTicketType} 
-        selectedTicketIncludeHotel={selectedTicketIncludeHotel} setSelectedTicketIncludeHotel={setSelectedTicketIncludeHotel} 
-        totalPrice={totalPrice} setTotalPrice={setTotalPrice}/>);
+      if ( tickets?.status === 'PAID') {
+        return (<PaymentConfirmation />);
+      } else {
+        return (
+          <TicketTypes 
+            selectedTicketType={selectedTicketType} 
+            setSelectedTicketType={setSelectedTicketType}
+            setTicketTypes={setTicketTypes}  
+            selectedTicketIncludeHotel={selectedTicketIncludeHotel} 
+            setSelectedTicketIncludeHotel={setSelectedTicketIncludeHotel} 
+            totalPrice={totalPrice} 
+            setTotalPrice={setTotalPrice}/>);
+      }
     }
   };
   
