@@ -35,6 +35,7 @@ const Card = styled.div`
   
   p {
     font-size: 1.2rem;
+    font-family: 'Roboto';
     color: ${props => props.isFull ? '#9D9D9D' : 'black'};
   }
 `;

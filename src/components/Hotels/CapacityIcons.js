@@ -19,7 +19,6 @@ export default function CapacityIcons({ capacity, occupation, isSelected, isFull
     }
 
     setSpots(toSetSpots);
-    console.log(spots, capacity, occupation);
   }, []);
 
   return <>{spots ? 

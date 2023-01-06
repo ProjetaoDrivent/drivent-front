@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import * as useHotel from '../../hooks/api/useHotel';
 import RoomCard from './RoomCard';
+import BookRoomButton from './BookRoomButton';
 
 export default function HotelRooms({ id }) {
   const [roomData, setRoomData] = useState();
@@ -10,25 +11,30 @@ export default function HotelRooms({ id }) {
 
   useEffect(async() => {
     const { Rooms } = await getRooms();
-    setRoomData(Rooms);
-    console.log(roomData);       
+    setRoomData(Rooms);      
   }, [id]);
 
   return (
-    <Rooms>
-      {roomData?.map(room => 
-        <RoomCard 
-          key={room.id}
-          id={room.id}
-          name={room.name}
-          capacity={room.capacity}
-          occupation={1}
-          selectedRoom={selectedRoom}
-          setSelectedRoom={setSelectedRoom} />
-      )
-
+    <>
+      <Rooms>
+        {roomData?.map(room => 
+          <RoomCard 
+            key={room.id}
+            id={room.id}
+            name={room.name}
+            capacity={room.capacity}
+            occupation={room.Booking.length}
+            selectedRoom={selectedRoom}
+            setSelectedRoom={setSelectedRoom} />
+        )
+        }
+      </Rooms>
+      {selectedRoom ? 
+        <BookRoomButton />
+        : 
+        <></>
       }
-    </Rooms>
+    </>
   );
 };
 
@@ -36,5 +42,4 @@ const Rooms = styled.div`
   margin-top: 5vh;
   display: flex;
   flex-wrap: wrap;
-  
 `;
