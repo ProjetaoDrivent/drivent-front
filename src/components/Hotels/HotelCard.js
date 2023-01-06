@@ -6,12 +6,12 @@ import { SelectBox } from '../Commons/SelectBox';
 export default function HotelCard({ id, image, name, selectedHotel, setSelectedHotel }) {
   const { getRooms } = useHotel.useRooms(id);
   const [roomData, setRoomData] = useState();
-
+  
   useEffect(async() => {
     const { Rooms } = await getRooms();
     setRoomData(Rooms);
   }, []);
-
+  
   let single = false;
   let double = false;
   let triple = false;
