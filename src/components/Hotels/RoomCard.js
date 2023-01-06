@@ -2,22 +2,22 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import CapacityIcons from './CapacityIcons';
 
-export default function RoomCard({ id, name, capacity, occupation, selectedRoom, setSelectedRoom }) {
+export default function RoomCard({ id, name, hotelId, capacity, occupation, selectedRoom, setSelectedRoom }) {
   const focusRoom = () => {
     if(capacity === occupation) return;
-    setSelectedRoom(id);
+    setSelectedRoom({ id, hotelId });
   };
   
   return (
     <Card 
       onClick={() => focusRoom()} 
-      isSelected={id === selectedRoom}
+      isSelected={id === selectedRoom.id}
       isFull={capacity === occupation} >
       <p>{name}</p>
       <CapacityIcons 
         capacity={capacity}
         occupation={occupation}
-        isSelected={id === selectedRoom}
+        isSelected={id === selectedRoom.id}
         isFull={capacity === occupation} />
     </Card>
   );

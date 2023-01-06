@@ -1,30 +1,18 @@
-import styled from 'styled-components';
+import useToken from '../../hooks/useToken';
+import { postBooking } from '../../services/bookingApi';
+import { BookButton } from '../Commons/BookButton';
 
-export default function BookRoomButton() {
+export default function BookRoomButton({ roomId }) {  
+  const token = useToken();
+  const bookRoom = () => {
+    postBooking(token, roomId);
+    console.log(roomId);
+  };
+
   return (
-    <Button>
+    <BookButton onClick={bookRoom}>
       RESERVAR QUARTO
-    </Button>
+    </BookButton>
   );
 };
 
-const Button = styled.button`
-    width: 10rem;
-    height: 5vh;
-    margin-top: 4vh;
-    border: none;
-    border-radius: 6px;
-    background-color: #E0E0E0;
-    box-shadow: 0 0 0.9vh 0 grey;
-
-    :hover {
-        background-color: #D0D0D0
-    }
-
-    span {
-        font-size: 0.7rem;
-        font-family: 'Roboto';
-        margin: 0.3rem;
-        
-    }
-`;

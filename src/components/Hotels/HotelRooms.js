@@ -21,6 +21,7 @@ export default function HotelRooms({ id }) {
           <RoomCard 
             key={room.id}
             id={room.id}
+            hotelId={room.hotelId}
             name={room.name}
             capacity={room.capacity}
             occupation={room.Booking.length}
@@ -29,8 +30,8 @@ export default function HotelRooms({ id }) {
         )
         }
       </Rooms>
-      {selectedRoom ? 
-        <BookRoomButton />
+      {(selectedRoom && id === selectedRoom.hotelId) ? 
+        <BookRoomButton roomId={selectedRoom.id} />
         : 
         <></>
       }
