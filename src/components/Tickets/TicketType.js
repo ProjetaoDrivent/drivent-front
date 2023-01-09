@@ -7,7 +7,7 @@ export default function TicketType({ ticket, selectedTicket, setSelectedTicket }
   return (
     <>
       <SelectBox onClick={() => selectTicket(ticket)} selected={name === selectedTicket.name}>
-        <h1>{name}</h1> <p>R$ {Number(price) / 100}</p>
+        <h1>{name}</h1> <p>R$ {Number(price) }</p>
       </SelectBox>
     </>
   );
