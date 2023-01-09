@@ -8,7 +8,7 @@ import useToken from '../../hooks/useToken';
 import { toast } from 'react-toastify';
 import Button from '../Form/Button';
 
-export default function PaymentCard( { ticketId } ) {
+export default function PaymentCard( { ticketId, setScreenChange } ) {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
   const [expiry, setExpiry] = useState('');
@@ -41,6 +41,7 @@ export default function PaymentCard( { ticketId } ) {
       };
       const ok = postPayment(paymentData, token);
       console.log(ok);
+      setScreenChange({ status: 'PAID' });
       toast('Pagmento realizado com sucesso!');
     } catch (err) {
       toast('Não foi possível realizar o pagamento!');
