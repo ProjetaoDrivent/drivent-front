@@ -3,7 +3,7 @@ import useToken from '../useToken';
 
 import * as activitiesApi from '../../services/activitiesApi';
 
-export default function useActivitiesDays() {
+export function useActivitiesDays() {
   const token = useToken();
   const {
     data: activitiesDays,
@@ -15,5 +15,37 @@ export default function useActivitiesDays() {
     activitiesDays,
     activitiesDaysError,
     activitiesDaysLoading,
+  };
+}
+
+export function useActivitiesLocals() {
+  const token = useToken();
+  const {
+    data: activitiesLocals,
+    loading: activitiesLocalsLoading,
+    error: activitiesLocalsError,
+  } = useAsync(() => activitiesApi.getActivitiesLocals(token));
+
+  return {
+    activitiesLocals,
+    activitiesLocalsError,
+    activitiesLocalsLoading,
+  };
+}
+
+export function useAllActivities(activitiesDateId, localId) {
+  const token = useToken();
+  const {
+    data: activities,
+    loading: activitiesLoading,
+    error: activitiesError,
+    act: getAllActivities,
+  } = useAsync(() => activitiesApi.getAllActivities({ token, activitiesDateId, localId }));
+
+  return {
+    activities,
+    activitiesError,
+    activitiesLoading,
+    getAllActivities
   };
 }
