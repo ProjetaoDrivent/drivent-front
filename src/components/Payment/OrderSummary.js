@@ -8,7 +8,7 @@ import Button from '../Form/Button';
 import PaymentCard from './PaymentCard';
 import { TicketContainer } from '../Commons/TicketContainer';
 
-export default function OrderSummary() {
+export default function OrderSummary({ setScreenChange }) {
   const { tickets } = useTickets.useTickets();
   const [order, setOrder] = useState({});
 
@@ -32,7 +32,7 @@ export default function OrderSummary() {
       </TicketContainer>
       <PaymentForm>
         <SubTitle>Pagamento</SubTitle>
-        <PaymentCard ticketId={tickets?.id}/>
+        <PaymentCard ticketId={tickets?.id} setScreenChange={setScreenChange}/>
       </PaymentForm>
     </>
   );

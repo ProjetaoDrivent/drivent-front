@@ -25,7 +25,7 @@ export default function PaymentConfirmation() {
       <SubTitle>Ingresso escolhido</SubTitle> 
       <TicketContainer>
         <h1>{order?.isRemote === 'Online' ? 'Online' : `${order?.isRemote} + ${order?.includesHotel}`}</h1>
-        <p>R$ {order?.price / 100}</p>
+        <p>R$ {order?.price}</p>
       </TicketContainer>
       <SubTitle>Pagamento</SubTitle>
       <PaymentMessage>

@@ -5,7 +5,7 @@ import * as useTickets from '../../hooks/api/useTickets';
 import useToken from '../../hooks/useToken';
 import { postTicket } from '../../services/ticketsApi';
 
-export default function BookOrderButton({ ticketOptions, ticketIncludeHotel }) { 
+export default function BookOrderButton({ ticketOptions, ticketIncludeHotel, setScreenChange }) { 
   const token = useToken(); 
   const bookOrder = () => {
     let ticketId = ticketOptions;
@@ -20,6 +20,7 @@ export default function BookOrderButton({ ticketOptions, ticketIncludeHotel }) {
       });
     }
     postTicket(token, ticketId[0].id);
+    setScreenChange({ status: 'RESERVED' });
   };
   
   return (
