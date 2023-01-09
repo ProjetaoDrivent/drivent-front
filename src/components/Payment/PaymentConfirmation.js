@@ -15,7 +15,7 @@ export default function PaymentConfirmation() {
       setOrder({
         isRemote: order.isRemote ? 'Online' : 'Presencial',
         includesHotel: order.includesHotel ? 'Com Hotel' : 'Sem Hotel',
-        price: order.includesHotel ? 60000 : order.price,
+        price: order.includesHotel ? 600 : order.price,
       });
     }
   }, [tickets]);
