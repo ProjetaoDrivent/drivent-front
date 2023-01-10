@@ -5,10 +5,22 @@ import useToken from '../../hooks/useToken';
 import { postTicket } from '../../services/ticketsApi';
 import { BookButton } from '../Commons/BookButton';
 
-export default function BookOrderButton({ ticketOptions }) { 
+export default function BookOrderButton({ ticketOptions, ticketIncludeHotel, setScreenChange }) { 
   const token = useToken(); 
   const bookOrder = () => {
-    postTicket(token, ticketOptions[0].id);
+    let ticketId = ticketOptions;
+    console.log(ticketIncludeHotel);
+    if (ticketIncludeHotel === 'Com Hotel') {
+      ticketId = ticketOptions.filter( ticket => {
+        return ticket.includesHotel === true;
+      });
+    } else if (ticketIncludeHotel === 'Sem Hotel') {
+      ticketId = ticketOptions.filter( ticket => {
+        return ticket.includesHotel === false;
+      });
+    }
+    postTicket(token, ticketId[0].id);
+    setScreenChange({ status: 'RESERVED' });
   };
   
   return (

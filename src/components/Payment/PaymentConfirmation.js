@@ -15,7 +15,7 @@ export default function PaymentConfirmation() {
       setOrder({
         isRemote: order.isRemote ? 'Online' : 'Presencial',
         includesHotel: order.includesHotel ? 'Com Hotel' : 'Sem Hotel',
-        price: order.includesHotel ? 60000 : order.price,
+        price: order.includesHotel ? 600 : order.price,
       });
     }
   }, [tickets]);
@@ -25,7 +25,7 @@ export default function PaymentConfirmation() {
       <SubTitle>Ingresso escolhido</SubTitle> 
       <TicketContainer>
         <h1>{order?.isRemote === 'Online' ? 'Online' : `${order?.isRemote} + ${order?.includesHotel}`}</h1>
-        <p>R$ {order?.price / 100}</p>
+        <p>R$ {order?.price}</p>
       </TicketContainer>
       <SubTitle>Pagamento</SubTitle>
       <PaymentMessage>

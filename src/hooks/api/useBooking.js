@@ -20,3 +20,21 @@ export function useGetBooking() {
     getBooking,
   };
 }
+
+export function useBooking() {
+  const token = useToken();
+
+  const {
+    data: bookings,
+    loading: bookingsLoading,
+    error: bookingsError,
+    act: getBookings,
+  } = useAsync(() => bookingApi.getBookingInformation(token));
+
+  return {
+    bookings,
+    bookingsLoading,
+    bookingsError,
+    getBookings,
+  };
+}
