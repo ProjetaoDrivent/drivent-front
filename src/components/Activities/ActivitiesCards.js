@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export default function ActivitiesCards({ activitie }) {
   const start = new Date(activitie.startsAt);
   const end = new Date(activitie.endsAt);
-  const duration = end.getHours() - start.getHours();
+  const duration = (end - start)/(3600000);
   const startTime = start.toTimeString().slice(0, 5);
   const endTime = end.toTimeString().slice(0, 5);
   

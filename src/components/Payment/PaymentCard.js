@@ -41,7 +41,7 @@ export default function PaymentCard( { ticketId } ) {
       };
       const ok = postPayment(paymentData, token);
       console.log(ok);
-      toast('Pagmento realizado com sucesso!');
+      toast('Pagamento realizado com sucesso!');
     } catch (err) {
       toast('Não foi possível realizar o pagamento!');
     }
