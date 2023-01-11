@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import HotelCard from './HotelCard';
+import HotelRooms from './HotelRooms';
 import BookingCard from '../Bookings/BookingCard';
 import styled from 'styled-components';
 import { SubTitle } from '../Commons/SubTitle';
@@ -26,18 +27,31 @@ export default function Hotels() {
         <>
           <SubTitle>Primeiro, escolha seu hotel</SubTitle>
           <HotelsContainer>
-            {hotels ? (
-              hotels.map((hotel) => (
-                <HotelCard
-                  key={hotel.id}
-                  {...hotel}
-                  selectedHotel={selectedHotel}
-                  setSelectedHotel={setSelectedHotel}
-                />
-              ))
+            <div className='cards'>
+              {hotels ? (
+                hotels.map((hotel) => (
+                  <HotelCard
+                    key={hotel.id}
+                    {...hotel}
+                    selectedHotel={selectedHotel}
+                    setSelectedHotel={setSelectedHotel}
+                  />
+                ))
+              ) : (
+                <></>
+              )}
+            </div>
+
+            {selectedHotel ? (
+              <>
+                <SubTitle>Ótima pedida! Agora escolha seu quarto</SubTitle>
+                <HotelRooms id={selectedHotel} />
+              </>
             ) : (
               <></>
-            )}
+            )
+
+            }
           </HotelsContainer>
         </>
       }
@@ -47,5 +61,10 @@ export default function Hotels() {
 
 const HotelsContainer = styled.div`
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+
+  .cards {
+    display: flex;
+    gap: 24px;
+  }
 `;
