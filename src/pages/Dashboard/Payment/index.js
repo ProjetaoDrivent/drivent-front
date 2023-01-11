@@ -16,7 +16,6 @@ export default function Payment() {
   const [selectedTicketIncludeHotel, setSelectedTicketIncludeHotel] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
   const [screenChange, setScreenChange] = useState({});
-  //verificar se é PAID futuramente e mostrar tela de confirmação de pagamento
   
   function HaveTicketReserved() {
     console.log(tickets?.status);

@@ -39,10 +39,14 @@ export default function PaymentCard( { ticketId, setScreenChange } ) {
           cvv: cvc
         }      
       };
-      const ok = postPayment(paymentData, token);
-      console.log(ok);
-      setScreenChange({ status: 'PAID' });
-      toast('Pagmento realizado com sucesso!');
+      if (paymentData.cardData.number !== '' && paymentData.cardData.name !== '' && 
+      paymentData.cardData.expirationDate !== '' && paymentData.cardData.cvv !== '') {
+        postPayment(paymentData, token);
+        setScreenChange({ status: 'PAID' });
+        toast('Pagamento realizado com sucesso!'); 
+      } else {
+        toast('Preencha todos os campos!');
+      };
     } catch (err) {
       toast('Não foi possível realizar o pagamento!');
     }
