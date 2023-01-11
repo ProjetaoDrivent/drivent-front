@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
 import useEnrollment from '../../../hooks/api/useEnrollment';
@@ -15,14 +15,17 @@ export default function Payment() {
   const [ticketTypes, setTicketTypes] = useState([]);
   const [selectedTicketIncludeHotel, setSelectedTicketIncludeHotel] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0);
-  //verificar se é PAID futuramente e mostrar tela de confirmação de pagamento
+  const [screenChange, setScreenChange] = useState({});
   
   function HaveTicketReserved() {
-    if (tickets?.status === 'RESERVED') {
-      return (<OrderSummary/>);
+    console.log(tickets?.status);
+    console.log(screenChange);
+    
+    if (tickets?.status === 'RESERVED' || screenChange.status === 'RESERVED') {
+      return (<OrderSummary setScreenChange={setScreenChange}/>);
     } else {
-      if ( tickets?.status === 'PAID') {
-        return (<PaymentConfirmation />);
+      if ( tickets?.status === 'PAID' || screenChange.status === 'PAID') {
+        return (<PaymentConfirmation setScreenChange={setScreenChange} />);
       } else {
         return (
           <TicketTypes 
@@ -32,7 +35,8 @@ export default function Payment() {
             selectedTicketIncludeHotel={selectedTicketIncludeHotel} 
             setSelectedTicketIncludeHotel={setSelectedTicketIncludeHotel} 
             totalPrice={totalPrice} 
-            setTotalPrice={setTotalPrice}/>);
+            setTotalPrice={setTotalPrice}
+            setScreenChange={setScreenChange}/>);
       }
     }
   };

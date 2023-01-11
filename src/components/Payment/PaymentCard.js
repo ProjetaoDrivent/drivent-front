@@ -8,7 +8,7 @@ import useToken from '../../hooks/useToken';
 import { toast } from 'react-toastify';
 import Button from '../Form/Button';
 
-export default function PaymentCard( { ticketId } ) {
+export default function PaymentCard( { ticketId, setScreenChange } ) {
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
   const [expiry, setExpiry] = useState('');
@@ -39,9 +39,14 @@ export default function PaymentCard( { ticketId } ) {
           cvv: cvc
         }      
       };
-      const ok = postPayment(paymentData, token);
-      console.log(ok);
-      toast('Pagamento realizado com sucesso!');
+      if (paymentData.cardData.number !== '' && paymentData.cardData.name !== '' && 
+      paymentData.cardData.expirationDate !== '' && paymentData.cardData.cvv !== '') {
+        postPayment(paymentData, token);
+        setScreenChange({ status: 'PAID' });
+        toast('Pagamento realizado com sucesso!'); 
+      } else {
+        toast('Preencha todos os campos!');
+      };
     } catch (err) {
       toast('Não foi possível realizar o pagamento!');
     }
