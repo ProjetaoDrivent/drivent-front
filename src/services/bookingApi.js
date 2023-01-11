@@ -8,7 +8,7 @@ export async function postBooking(token, roomId) {
   });
 }
 
-export async function GetBooking(token) {
+export async function getBooking(token) {
   const response = await api.get('/booking', {
     headers: {
       Authorization: `Bearer ${token}`,
