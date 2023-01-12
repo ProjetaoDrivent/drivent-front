@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
-export default function BookingCard({ roomId, image, name, hotelName, occupation }) {
-  const id = roomId;
+export default function BookingCard({ capacity, image, name, hotelName, occupation }) {
+  function typeRoom() {
+    if (capacity === 1) return '(Single)';
+    if (capacity === 2) return '(Double)';
+    if (capacity >= 3) return '(Triple)';
+    return '';
+  }
 
   return (
     <>
@@ -9,7 +14,7 @@ export default function BookingCard({ roomId, image, name, hotelName, occupation
         <img src={image} alt={hotelName} />
         <h1>{hotelName}</h1>
         <h3>Quarto Reservado</h3>
-        <h4>{id} ({name})</h4>
+        <h4>{name} {typeRoom()}</h4>
         <h3>Pessoas no seu quarto</h3>
         <h4>{ occupation - 1 === 0 ? 'Somente você' : `Você e mais ${Number(occupation) - 1}`}</h4>
       </SelectHotelBox>
