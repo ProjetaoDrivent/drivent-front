@@ -1,6 +1,8 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { AiFillGithub } from 'react-icons/ai';
 
 import AuthLayout from '../../layouts/Auth';
 
@@ -36,7 +38,18 @@ export default function SignIn() {
     } catch (err) {
       toast('Não foi possível fazer o login!');
     }
-  } 
+  }
+
+  function loginGithub() { 
+    window.location.assign(`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}`);
+  }
+
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const codeParam = urlParams.get('code');
+    console.log(codeParam);
+  }, []);
 
   return (
     <AuthLayout background={eventInfo.backgroundImageUrl}>
@@ -53,8 +66,30 @@ export default function SignIn() {
         </form>
       </Row>
       <Row>
+        <GithubButton onClick={loginGithub}>
+          <GithubIcon />
+          <span>Entrar com o Github</span>
+        </GithubButton>
+      </Row>
+      <Row>
         <Link to="/enroll">Não possui login? Inscreva-se</Link>
       </Row>
     </AuthLayout>
   );
 }
+
+const GithubButton = styled(Button)`
+  display: flex;
+  width: 100%;
+  background-color: #22272b !important;
+  color: white !important;
+  margin-top: 0 !important;
+  span {
+    margin-top: 0.3vh;
+  }
+`;
+
+const GithubIcon = styled(AiFillGithub)`
+  font-size: 1.8rem;
+  margin-right: 0.8rem;
+`;
