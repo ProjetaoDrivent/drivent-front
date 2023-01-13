@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import * as useHotel from '../../hooks/api/useHotel';
 import RoomCard from './RoomCard';
 import BookRoomButton from './BookRoomButton';
+import ChangeRoomButton from './ChangeRoomButton';
 
-export default function HotelRooms({ id }) {
+export default function HotelRooms({ id, changeRoom, bookingId }) {
   const [roomData, setRoomData] = useState();
   const [selectedRoom, setSelectedRoom] = useState(0);
   const { getRooms } = useHotel.useRooms(id);
@@ -13,6 +14,21 @@ export default function HotelRooms({ id }) {
     const { Rooms } = await getRooms();
     setRoomData(Rooms);      
   }, [id]);
+
+  function buttonBookingType() {
+    return(
+      <>
+        {changeRoom? 
+          <>
+            <ChangeRoomButton roomId={selectedRoom.id} bookingId={bookingId} />
+          </>
+          :
+          <>
+            <BookRoomButton roomId={selectedRoom.id} />
+          </>
+        }
+      </>);
+  };
 
   return (
     <>
@@ -31,7 +47,7 @@ export default function HotelRooms({ id }) {
         }
       </Rooms>
       {(selectedRoom && id === selectedRoom.hotelId) ? 
-        <BookRoomButton roomId={selectedRoom.id} />
+        buttonBookingType()
         : 
         <></>
       }
