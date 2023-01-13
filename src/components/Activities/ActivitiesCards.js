@@ -2,10 +2,8 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 export default function ActivitiesCards({ activitie }) {
-  const startsAt = dayjs(activitie.startsAt).add(3, 'h');
-  const endsAt = dayjs(activitie.endsAt).add(3, 'h');
-  const start = new Date(startsAt);
-  const end = new Date(endsAt);
+  const start = new Date(dayjs(activitie.startsAt).add(3, 'h'));
+  const end = new Date(dayjs(activitie.endsAt).add(3, 'h'));
   const duration = (end - start)/(3600000);
   const startTime = start.toTimeString().slice(0, 5);
   const endTime = end.toTimeString().slice(0, 5);
@@ -21,7 +19,7 @@ font-family: 'Roboto', sans-serif;
 font-size: 12px;
 color: #343434;
 width: 100%;
-height: ${props => `${80 * props.duration}px`};
+height: ${({ duration }) => `${80 * duration + 10 * (duration - 1)}px`};
 background-color: #F1F1F1;
 border-radius: 5px;
 padding: 12px 10px;
