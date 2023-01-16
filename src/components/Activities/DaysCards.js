@@ -31,4 +31,8 @@ const DaysButton = styled.button`
   h4 {
     font-size: 14px;
   }
+
+  :hover {
+        background-color: #D0D0D0
+    }
 `;

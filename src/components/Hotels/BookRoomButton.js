@@ -6,7 +6,6 @@ export default function BookRoomButton({ roomId }) {
   const token = useToken();
   const bookRoom = () => {
     postBooking(token, roomId);
-    console.log(roomId);
   };
 
   return (

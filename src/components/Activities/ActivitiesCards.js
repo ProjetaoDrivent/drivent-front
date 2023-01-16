@@ -1,11 +1,12 @@
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { CgEnter } from 'react-icons/cg';
+import dayjs from 'dayjs';
 import styled from 'styled-components';
 
 export default function ActivitiesCards({ activitie }) {
-  const start = new Date(activitie.startsAt);
-  const end = new Date(activitie.endsAt);
-  const duration = end.getHours() - start.getHours();
+  const start = new Date(dayjs(activitie.startsAt).add(3, 'h'));
+  const end = new Date(dayjs(activitie.endsAt).add(3, 'h'));
+  const duration = (end - start)/(3600000);
   const startTime = start.toTimeString().slice(0, 5);
   const endTime = end.toTimeString().slice(0, 5);
   const vacancies = activitie.ActivitiesVacancies;
@@ -84,10 +85,11 @@ font-family: 'Roboto', sans-serif;
 font-size: 12px;
 color: #343434;
 width: 100%;
-height: ${props => `${80 * props.duration}px`};
+height: ${({ duration }) => `${80 * duration + 10 * (duration - 1)}px`};
 background-color: #F1F1F1;
 border-radius: 5px;
 padding: 12px 10px;
+margin-bottom: 10px;
 `;
 
 const ActivitieTitle = styled.h4`
