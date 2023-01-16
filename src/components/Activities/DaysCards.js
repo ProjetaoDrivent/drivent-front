@@ -5,7 +5,7 @@ export default function DaysCard({ id, day, selectedDay, setSelectedDay }) {
   const date = day?.date.toString().substr(5, 5);
   const dateMonth = date.slice(0, 2);
   const dateDay = date.slice(3, 5);
-  console.log(selectedDay);
+
   return (
     <>
       <DaysButton onClick={() => setSelectedDay(day.id)} selected={day.id === selectedDay}>
@@ -18,6 +18,7 @@ export default function DaysCard({ id, day, selectedDay, setSelectedDay }) {
 }
 
 const DaysButton = styled.button`
+  font-family: 'Roboto', sans-serif;
   min-width: 131px;
   height: 37px;
   margin-right: 17px;
@@ -30,4 +31,8 @@ const DaysButton = styled.button`
   h4 {
     font-size: 14px;
   }
+
+  :hover {
+        background-color: #D0D0D0
+    }
 `;

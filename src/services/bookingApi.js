@@ -8,6 +8,14 @@ export async function postBooking(token, roomId) {
   });
 }
 
+export async function changeBooking(token, bookingId, roomId) {
+  const response = await api.put(`/booking/${bookingId}`, { roomId }, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export async function getBooking(token) {
   const response = await api.get('/booking', {
     headers: {
