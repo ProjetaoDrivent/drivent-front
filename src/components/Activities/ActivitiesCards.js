@@ -12,36 +12,43 @@ export default function ActivitiesCards({ activitie }) {
   const vacancies = activitie.ActivitiesVacancies;
   
   return (
-    <ActivityCard>
+    <>
       <ActivitieDetails duration={duration}>
-        <ActivitieTitle>{activitie.title}</ActivitieTitle>
-        <ActivitieTime>{startTime} - {endTime}</ActivitieTime>
+        <div>
+          <ActivitieTitle>{activitie.title}</ActivitieTitle>
+          <ActivitieTime>{startTime} - {endTime}</ActivitieTime>
+        </div>
+        <div>
+          <VacancyStatus>{vacancies ? (
+            <WithVacancies>
+              <EnterIcon />
+              {vacancies} vagas
+            </WithVacancies>
+          ) : (
+            <NoVacancy>
+              <NoIcon />
+              Esgotado
+            </NoVacancy>
+          )}
+          </VacancyStatus>
+        </div>
+        
       </ActivitieDetails>
-      <VacancyStatus>{vacancies ? (
-        <WithVacancies>
-          <EnterIcon />
-          {vacancies} vagas
-        </WithVacancies>
-      ) : (
-        <NoVacancy>
-          <NoIcon />
-          Esgotado
-        </NoVacancy>
-      )}
-      </VacancyStatus>
-    </ActivityCard>
+      
+    </>
   );
 }
 
-const ActivityCard = styled.div`
+const ActivitieDetails = styled.div`
 font-family: 'Roboto', sans-serif;
 font-size: 12px;
 color: #343434;
-height: ${props => `${80 * props.duration}px`};
+width: 100%;
+height: ${({ duration }) => `${80 * duration + 10 * (duration - 1)}px`};
 background-color: #F1F1F1;
 border-radius: 5px;
 padding: 12px 10px;
-width: 100%;
+margin-bottom: 10px;
 display: flex;
 justify-content: space-between;
 `;
@@ -50,7 +57,8 @@ const VacancyStatus = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-width: 150px;
+height: 100%;
+width: 80px;
 border-left: 1px solid #CFCFCF;
 `;
 
@@ -78,18 +86,6 @@ align-items: center;
 const NoIcon = styled(AiOutlineCloseCircle)`
 font-size: 25px;
 color: #CC6666;
-`;
-
-const ActivitieDetails = styled.div`
-font-family: 'Roboto', sans-serif;
-font-size: 12px;
-color: #343434;
-width: 100%;
-height: ${({ duration }) => `${80 * duration + 10 * (duration - 1)}px`};
-background-color: #F1F1F1;
-border-radius: 5px;
-padding: 12px 10px;
-margin-bottom: 10px;
 `;
 
 const ActivitieTitle = styled.h4`
