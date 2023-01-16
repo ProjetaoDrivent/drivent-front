@@ -15,6 +15,8 @@ import EventInfoContext from '../../contexts/EventInfoContext';
 import UserContext from '../../contexts/UserContext';
 
 import useSignIn from '../../hooks/api/useSignIn';
+import { assignGithub, getGithubAccessToken, getGithubUserData } from '../../services/authApi';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -26,6 +28,8 @@ export default function SignIn() {
   const { setUserData } = useContext(UserContext);
 
   const navigate = useNavigate();
+
+  const githubToken = useLocalStorage('githubToken', null);
   
   async function submit(event) {
     event.preventDefault();
@@ -40,15 +44,29 @@ export default function SignIn() {
     }
   }
 
-  function loginGithub() { 
-    window.location.assign(`https://github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_CLIENT_ID}`);
+  function loginGithub() {
+    githubToken[1](null);
+    assignGithub();
+  }
+  
+  function setGithubToken(token) {
+    githubToken[1](token);
   }
 
-  useEffect(() => {
+  useEffect(async() => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const codeParam = urlParams.get('code');
-    console.log(codeParam);
+    console.log(codeParam, githubToken);
+
+    if(codeParam && !githubToken[0]) {
+      const token = await getGithubAccessToken(codeParam);
+      setGithubToken(token.accessToken);
+      console.log(token.accessToken, githubToken);
+
+      const userData = await getGithubUserData(token.accessToken);
+      console.log(userData);
+    }
   }, []);
 
   return (
